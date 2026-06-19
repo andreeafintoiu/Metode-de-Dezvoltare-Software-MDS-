@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Course Catalog{% endblock %}</title>
+</head>
+<body>
+    <nav style="background: #f4f4f4; padding: 10px; margin-bottom: 20px;">
+        <a href="{% url 'course_list' %}">All Courses</a> | 
+        {% if user.is_authenticated %}
+            <span>Welcome, {{ user.username }}!</span> | 
+            <a href="{% url 'course_create' %}">Add Course</a> | 
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" style="background:none; border:none; color:blue; text-decoration:underline; cursor:pointer; font-family:inherit; font-size:inherit; padding:0;">Logout</button>
+</form>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </nav>
+    {% block content %}{% endblock %}
+</body>
+</html>
