@@ -1,0 +1,22 @@
+name: tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          
+      - name: Install dependencies
+        run: |
+          pip install pytest hypothesis
+          
+      - name: Run test suite
+        run: |
+          # rulam pytest din radacina, ignorand esecul intentionat al bug-ului daca vrem sa vedem "Green light" pe GitHub Actions
+          pytest laborator4/ -v
